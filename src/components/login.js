@@ -15,6 +15,11 @@ export default function Login({handleCloseModal, showModal, logged}) {
     if(typeof(localStorage) !== 'undefined'){
       localStorage.setItem("email", data.email)
       localStorage.setItem("password", data.password)
+      if(localStorage.email == 'user@gmail.com'){
+        localStorage.setItem('role', 'user')
+      }else{
+        localStorage.setItem('role', 'partner')
+      }
 
       console.log(localStorage.getItem('email'))
       console.log(localStorage.getItem('password'))
