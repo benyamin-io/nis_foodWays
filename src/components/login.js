@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Modal, show, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
-export default function Login({handleCloseModal, showModal}) {
+export default function Login({handleCloseModal, showModal, logged}) {
   
   const [data, setData] = useState({email: '', password: ''})
 
@@ -18,6 +18,9 @@ export default function Login({handleCloseModal, showModal}) {
 
       console.log(localStorage.getItem('email'))
       console.log(localStorage.getItem('password'))
+
+      logged()
+      handleCloseModal('login')
     }else{
 
     }
