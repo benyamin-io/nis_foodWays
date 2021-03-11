@@ -1,12 +1,17 @@
-*{
+* {
   box-sizing: border-box;
 }
 
-.modalw{
+.login-modalw, .register-modalw {
   width: 416px;
 }
 
-.modalw > div{
+.login-modalw > div {
   height: 408px;
+  padding: 41px 33px 0 33px;
+}
+
+.register-modalw > div {
+  height: 694px;
   padding: 41px 33px 0 33px;
 }

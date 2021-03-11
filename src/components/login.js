@@ -6,7 +6,7 @@ export default function Login({handleCloseModal, showModal}) {
   
   return (
     <>
-      <Modal show={showModal} onHide={handleCloseModal} centered dialogClassName="modalw" style={{padding: "41px 33px 0 33px"}}>
+      <Modal show={showModal} onHide={() => handleCloseModal('login')} centered dialogClassName="login-modalw">
         <div>
             <h3 className="mb-5">Login</h3>
             <input type="text" name="email" placeholder="Email" className="p-2 w-100 mb-4" />

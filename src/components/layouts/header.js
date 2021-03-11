@@ -3,16 +3,20 @@ import React, {useState} from 'react'
 import {Navbar, Nav, Row, Col, Container, Button} from 'react-bootstrap'
 
 import Login from '../../components/login'
+import Register from '../../components/register'
 
 import logo from "../../assets/logo.png"
 
 
 export default function Header() {
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState({
+    login: false,
+    register: false,
+  });
 
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = (which) => setShowModal({...showModal, [which]: true});
+  const handleCloseModal = (which) => setShowModal({...showModal, [which]: false});
 
   return (
     <header>
@@ -26,14 +30,17 @@ export default function Header() {
             </Col>
             <Col className="pr-5 mr-2">
               <Row className="justify-content-end">
-                <Button variant="dark" className="mr-4 px-4">Register</Button>
-                <Button variant="dark" className="px-4" onClick={handleShowModal} >Login</Button>
+                <Button variant="dark" className="mr-4 px-4" onClick={()=> handleShowModal('register')}>Register</Button>
+
+                <Button variant="dark" className="px-4" onClick={() => handleShowModal('login')} >Login</Button>
               </Row>
             </Col>
           </Row>
       </Container>
 
-      {showModal && <Login handleCloseModal={handleCloseModal} showModal={showModal} />}
+      {showModal.login && <Login handleCloseModal={handleCloseModal} showModal={showModal.login} />}
+
+      {showModal.register && <Register handleCloseModal={handleCloseModal} showModal={showModal.register} />}
     </header>
   )
 }
