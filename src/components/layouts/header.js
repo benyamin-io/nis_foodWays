@@ -6,12 +6,12 @@ import {Navbar, Nav, Row, Col, Container, Button, Dropdown} from 'react-bootstra
 import Login from '../../components/login'
 import Register from '../../components/register'
 
-import logo from "../../assets/logo.png"
-import cart from "../../assets/cart.png"
-import avatar from "../../assets/avatar.png"
-import logout from "../../assets/logout.png"
-import profile from "../../assets/profile.png"
-import addproduct from "../../assets/addproduct.png"
+import logo from "../../assets/header/logo.png"
+import cart from "../../assets/header/cart.png"
+import avatar from "../../assets/header/avatar.png"
+import logout from "../../assets/header/logout.png"
+import profile from "../../assets/header/profile.png"
+import addproduct from "../../assets/header/addproduct.png"
 
 
 export default function Header({isLogin, logged, showModal, handleShowModal, handleCloseModal}) {
@@ -66,7 +66,7 @@ export default function Header({isLogin, logged, showModal, handleShowModal, han
                        
                         <Dropdown.Divider style={{border: "1px solid gray"}} />
                         <Dropdown.Item href="#/action-3">
-                          <div className="d-flex align-items-center">
+                          <div className="d-flex align-items-center" onClick={() => window.location = 'http://localhost:3000'}>
                             <div>
                               <img src={logout} />
                             </div>
