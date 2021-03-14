@@ -67,7 +67,10 @@ export default function Login({from}) {
 
               <Button className="w-100" onClick={handleLogin}>Login</Button>
               <div className="text-center mt-3">
-                <Link to="">Don't have an account ? Click <b>Here</b></Link>
+                <Link to="" onClick={() => {
+                  dispatchModal({type: 'CLOSE_MODAL_LOGIN'})
+                  dispatchModal({type: 'SHOW_MODAL_REGISTER'})
+                }}>Don't have an account ? Click <b>Here</b></Link>
               </div>
             </form>
 

@@ -118,7 +118,10 @@ export default function Register({}){
         </form>
 
         <div className="text-center mt-3">
-          <Link to="">Already have an account ? Click here</Link>
+          <Link to=""  onClick={() => {
+                  dispatchModal({type: 'CLOSE_MODAL_REGISTER'})
+                  dispatchModal({type: 'SHOW_MODAL_LOGIN'})
+                }}>Already have an account ? Click here</Link>
         </div>
       </div>
     </Modal>
