@@ -1,10 +1,21 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {Modal, show, Button} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
-export default function Login({handleCloseModal, showModal, logged}) {
+import {LoginContext} from '../contexts/loginContext'
+import {ModalContext} from '../contexts/modalContext'
+
+
+export default function Login({from}) {
   
+  console.log(from)
+
   const [data, setData] = useState({email: '', password: ''})
+
+  const [state, dispatch] = useContext(LoginContext)
+  const [modal, dispatchModal] = useContext(ModalContext)
+
+  const history = useHistory()
 
   const handleChange = e => {
     setData({...data, [e.target.name]: e.target.value})
@@ -24,8 +35,20 @@ export default function Login({handleCloseModal, showModal, logged}) {
       console.log(localStorage.getItem('email'))
       console.log(localStorage.getItem('password'))
 
-      logged()
-      handleCloseModal('login')
+      dispatch({
+        type: "LOGIN_SUCCESS",
+      })
+
+      // console.log(dispatch)
+      // console.log(state.isLogin)
+
+      dispatchModal({
+        type: 'CLOSE_MODAL_LOGIN'
+      })
+
+      if(from){
+        history.push(`/partner/${from}`)
+      }
     }else{
 
     }
@@ -33,7 +56,7 @@ export default function Login({handleCloseModal, showModal, logged}) {
 
   return (
     <>
-      <Modal show={showModal} onHide={() => handleCloseModal('login')} centered dialogClassName="login-modalw">
+      <Modal show={modal.login} onHide={() => dispatchModal({type: 'CLOSE_MODAL_LOGIN'})} centered dialogClassName="login-modalw">
         <div>
             <h3 className="mb-5">Login</h3>
             

@@ -14,29 +14,39 @@ export default function Detail() {
 
   const products = geprekbensu[0].products
 
-  return (
-    <div className="w-75 mx-auto my-5">
-      <h3 className="mb-5">Geprek Bensu Menus</h3>
-      <div className="row ">
-        {products.map(product => {
-          return(
-            <div className="col-3" >
-              <Card className="mb-4" style={{background: "white"}}>
-                <Card.Body>
-                <Card.Img variant="top" src={product.image} />
 
-                  <Card.Title style={{height: "30px", marginBottom: "5px", marginTop: "15px"}}><b>{product.name}</b></Card.Title>
-                  <Card.Text style={{color: 'red'}}>
-                    Rp. {product.price}
-                  </Card.Text>
-                  <Button className="w-100 py-0" style={{background: '#FFC700', color: 'black' }}><b>Order</b></Button>
-                </Card.Body>
-              </Card>
-            </div>
-          )
-        })}
+  if(products && products.length > 0){
+    return (
+      <div className="w-75 mx-auto my-5">
+        <h3 className="mb-5">Geprek Bensu Menus</h3>
+        <div className="row ">
+          {products.map(product => {
+            return(
+              <div className="col-3" key={product.id}>
+                <Card className="mb-4" style={{background: "white"}}>
+                  <Card.Body>
+                  <Card.Img variant="top" src={product.image} />
+  
+                    <Card.Title style={{height: "30px", marginBottom: "5px", marginTop: "15px"}}><b>{product.name}</b></Card.Title>
+                    <Card.Text style={{color: 'red'}}>
+                      Rp. {product.price}
+                    </Card.Text>
+                    <Button className="w-100 py-0" style={{background: '#FFC700', color: 'black' }}><b>Order</b></Button>
+                  </Card.Body>
+                </Card>
+              </div>
+            )
+          })}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }else{
+    return(
+      <div className="w-75 mx-auto my-5">
+        <h3 className="mb-5 text-center">There are no menu</h3>
+      </div>
+    )
+  }
+  
 }
 

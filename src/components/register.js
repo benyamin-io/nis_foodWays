@@ -1,9 +1,11 @@
-import React, {useState, PureComponent, Fragment} from 'react'
+import React, {useState, PureComponent, Fragment, useContext} from 'react'
 import {Link} from 'react-router-dom'
 
 import {Modal, Button, Row, Col, Form} from 'react-bootstrap'
 
-export default function Register({showModal, handleCloseModal}){
+import {ModalContext} from '../contexts/modalContext'
+
+export default function Register({}){
 
   const [data, setData] = useState({
     email: '',
@@ -13,6 +15,8 @@ export default function Register({showModal, handleCloseModal}){
     phone: '',
     role: ''
   })
+
+  const [modal, dispatchModal] = useContext(ModalContext)
 
   class Select extends PureComponent {
     state = {
@@ -88,7 +92,7 @@ export default function Register({showModal, handleCloseModal}){
   }
 
   return(
-    <Modal show={showModal} onHide={() => handleCloseModal('register')} centered dialogClassName="register-modalw">
+    <Modal show={modal.register} onHide={() => dispatchModal({type: 'CLOSE_MODAL_REGISTER'})} centered dialogClassName="register-modalw">
       <div>
         <h3 className="mb-5">Register</h3>
         <form onSubmit={handleRegister}>

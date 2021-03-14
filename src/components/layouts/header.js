@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {Link} from 'react-router-dom'
 
-import {Navbar, Nav, Row, Col, Container, Button, Dropdown} from 'react-bootstrap'
+import {Row, Col, Container, Button, Dropdown} from 'react-bootstrap'
 
 import Login from '../../components/login'
 import Register from '../../components/register'
@@ -13,8 +13,15 @@ import logout from "../../assets/header/logout.png"
 import profile from "../../assets/header/profile.png"
 import addproduct from "../../assets/header/addproduct.png"
 
+import {LoginContext} from '../../contexts/loginContext'
+import {ModalContext} from '../../contexts/modalContext'
 
-export default function Header({isLogin, logged, showModal, handleShowModal, handleCloseModal}) {
+
+export default function Header({}) {
+
+  const [state, dispatch] = useContext(LoginContext)
+
+  const [modal, dispatchModal] = useContext(ModalContext)
   
   return (
     <header>
@@ -32,15 +39,15 @@ export default function Header({isLogin, logged, showModal, handleShowModal, han
 
             <Col className="pr-5 mr-2">
 
-              {!isLogin && 
+              {!state.isLogin && 
               <Row className="justify-content-end">
-                <Button variant="dark" className="mr-4 px-4" onClick={()=> handleShowModal('register')}>Register</Button>
+                <Button variant="dark" className="mr-4 px-4" onClick={()=> dispatchModal({type: 'SHOW_MODAL_REGISTER'})}>Register</Button>
 
-                <Button variant="dark" className="px-4" onClick={() => handleShowModal('login')} >Login</Button>
+                <Button variant="dark" className="px-4" onClick={() => dispatchModal({type: 'SHOW_MODAL_LOGIN'})} >Login</Button>
               </Row>
               }
 
-              {isLogin && 
+              {state.isLogin && 
                 <Row className="justify-content-end align-items-center mr-4">
                   <div className="mr-4">
                     <img src={cart} />
@@ -59,9 +66,16 @@ export default function Header({isLogin, logged, showModal, handleShowModal, han
                         </Dropdown.Item>
                         
                         {localStorage.role != 'user'?
-                           <Dropdown.Item href="#/action-2" className="d-flex align-items-center">
-                             <div><img src={addproduct}/> </div>
-                             <div className="ml-3">Add Product</div></Dropdown.Item> : null
+                           <Dropdown.Item >
+                              <Link to='/product/add'>
+                                <div className="d-flex align-items-center text-dark">
+                                  <div><img src={addproduct}/> </div>
+                                  <div className="ml-3">
+                                    Add Product
+                                  </div>
+                                </div>
+                             </Link>
+                            </Dropdown.Item> : null
                         }
                        
                         <Dropdown.Divider style={{border: "1px solid gray"}} />
@@ -90,9 +104,9 @@ export default function Header({isLogin, logged, showModal, handleShowModal, han
 
    
 
-      {showModal.login && <Login handleCloseModal={handleCloseModal} showModal={showModal.login} logged={logged} />}
+      {modal.login && modal.partnerId ? <Login from={modal.partnerId} /> : <Login /> }
 
-      {showModal.register && <Register handleCloseModal={handleCloseModal} showModal={!isLogin? showModal.register: null} />}
+      {modal.register && <Register />}
     </header>
   )
 }
