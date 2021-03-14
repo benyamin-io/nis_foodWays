@@ -7,7 +7,7 @@ import Login from '../../components/login'
 import Register from '../../components/register'
 
 import logo from "../../assets/header/logo.png"
-import cart from "../../assets/header/cart.png"
+import cartIcon from "../../assets/header/cart.png"
 import avatar from "../../assets/header/avatar.png"
 import logout from "../../assets/header/logout.png"
 import profile from "../../assets/header/profile.png"
@@ -15,6 +15,7 @@ import addproduct from "../../assets/header/addproduct.png"
 
 import {LoginContext} from '../../contexts/loginContext'
 import {ModalContext} from '../../contexts/modalContext'
+import {CartContext} from '../../contexts/cartContext'
 
 
 export default function Header({}) {
@@ -22,6 +23,8 @@ export default function Header({}) {
   const [state, dispatch] = useContext(LoginContext)
 
   const [modal, dispatchModal] = useContext(ModalContext)
+
+  const [cart, dispatchCart] = useContext(CartContext)
   
   return (
     <header>
@@ -50,7 +53,9 @@ export default function Header({}) {
               {state.isLogin && 
                 <Row className="justify-content-end align-items-center mr-4">
                   <div className="mr-4">
-                    <img src={cart} />
+                    <img src={cartIcon} /> 
+                    {cart.carts.length > 0? 
+                    <div style={{borderRadius: '50%', background: 'red', textAlign: 'center', color: 'white', width: '25px', height: '25px',padding: '3px', fontSize: '15px', position: 'absolute', top: '5px', right: '160px'}}>{cart.carts.length}</div> : ''}
                   </div>
                   <div>
                 

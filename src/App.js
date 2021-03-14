@@ -9,8 +9,10 @@ import AddProduct from './pages/addProduct'
 
 import { LoginContextProvider } from "./contexts/loginContext"
 import { ModalContextProvider } from "./contexts/modalContext"
+import { CartContextProvider } from "./contexts/cartContext"
 import { LoginContext } from "./contexts/loginContext"
 import { ModalContext } from "./contexts/modalContext"
+import { CartContext } from "./contexts/cartContext"
 
 import pizza from './assets/landing/pizza.png' 
 
@@ -31,76 +33,78 @@ function App() {
 
 
   return (
-    <ModalContextProvider>
-      <LoginContextProvider>
-        <Router>
-          {/* <Header showModal={showModal} handleShowModal={handleShowModal} handleCloseModal={handleCloseModal} /> */}
-          
-          <Header />
+    <CartContextProvider>
+      <ModalContextProvider>
+        <LoginContextProvider>
+          <Router>
+            {/* <Header showModal={showModal} handleShowModal={handleShowModal} handleCloseModal={handleCloseModal} /> */}
+            
+            <Header />
 
-          <Switch>
-            <Route exact path="/">
-            <div className="pb-5">
+            <Switch>
+              <Route exact path="/">
+              <div className="pb-5">
 
-              <div style={{background: "#FFC700"}}>
-                <Row className="w-75 mx-auto pt-5" style={{paddingTop: "108px"}}>
-                  <Col>
-                    <h1>Are You Hungry ? Express Home Delivery</h1>
-                    <Row>
-                      <Col>
-                        <hr style={{borderWidth: "3px", backgroundColor: "black"}}/>
+                <div style={{background: "#FFC700"}}>
+                  <Row className="w-75 mx-auto pt-5" style={{paddingTop: "108px"}}>
+                    <Col>
+                      <h1>Are You Hungry ? Express Home Delivery</h1>
+                      <Row>
+                        <Col>
+                          <hr style={{borderWidth: "3px", backgroundColor: "black"}}/>
+                        </Col>
+                        <Col>
+                          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                        </Col>
+                      </Row>
+                    </Col>  
+
+                      <Col style={{paddingBottom: "40px"}}>
+                        <img src={pizza}/>
                       </Col>
-                      <Col>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                      </Col>
-                    </Row>
-                  </Col>  
-
-                    <Col style={{paddingBottom: "40px"}}>
-                      <img src={pizza}/>
-                    </Col>
-                </Row>
-              </div>
+                  </Row>
+                </div>
 
 
-              <div className="mx-auto mt-5 w-75">
-                  <h3>Popular Restaurant</h3>
-                  <div className="mt-4 row">
+                <div className="mx-auto mt-5 w-75">
+                    <h3>Popular Restaurant</h3>
+                    <div className="mt-4 row">
 
-                    {popular.map(item => {
-                      const {image, title} = item
-                      return(
-                        <div className="col-md-3 mb-3">
-                          <div className="bg-white py-2 px-4">
-                            <Row className="align-items-center">
-                              <Col className="text-center" sm={4}>
-                                <img src={image} />
-                              </Col>
-                              <Col sm={8}>
-                                {title}
-                              </Col>
-                            </Row>
+                      {popular.map(item => {
+                        const {image, title} = item
+                        return(
+                          <div className="col-md-3 mb-3">
+                            <div className="bg-white py-2 px-4">
+                              <Row className="align-items-center">
+                                <Col className="text-center" sm={4}>
+                                  <img src={image} />
+                                </Col>
+                                <Col sm={8}>
+                                  {title}
+                                </Col>
+                              </Row>
+                            </div>
                           </div>
-                        </div>
-                      )
-                    })}
+                        )
+                      })}
 
-                  </div>
-              </div>
+                    </div>
+                </div>
 
-              <NearYou />
+                <NearYou />
 
-              </div>
-            </Route>
+                </div>
+              </Route>
 
 
-            <PrivateRoute path="/partner/:id" component={Detail} />
-            <Route exact path="/product/add" component={AddProduct} />
-          </Switch>
-          
-        </Router>
-      </LoginContextProvider>
-    </ModalContextProvider>
+              <PrivateRoute path="/partner/:id" component={Detail} />
+              <Route exact path="/product/add" component={AddProduct} />
+            </Switch>
+            
+          </Router>
+        </LoginContextProvider>
+      </ModalContextProvider>
+    </CartContextProvider>
   )
 }
 

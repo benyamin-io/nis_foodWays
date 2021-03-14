@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {useParams} from 'react-router-dom'
 
 import {Card, Row, Col, Button} from 'react-bootstrap'
 
 import {nearyou} from '../data'
+
+import {CartContext} from '../contexts/cartContext'
 
 export default function Detail() {
 
@@ -13,6 +15,10 @@ export default function Detail() {
   const geprekbensu = nearyou.filter(item => item.id == id)
 
   const products = geprekbensu[0].products
+
+  const [cart, dispatchCart] = useContext(CartContext)
+
+  console.log(cart)
 
 
   if(products && products.length > 0){
@@ -31,7 +37,9 @@ export default function Detail() {
                     <Card.Text style={{color: 'red'}}>
                       Rp. {product.price}
                     </Card.Text>
-                    <Button className="w-100 py-0" style={{background: '#FFC700', color: 'black' }}><b>Order</b></Button>
+                    <Button className="w-100 py-0" style={{background: '#FFC700', color: 'black' }}onClick={() => {
+                      dispatchCart({type: 'ADD_ITEM', payload: product})
+                    }}><b>Order</b></Button>
                   </Card.Body>
                 </Card>
               </div>
