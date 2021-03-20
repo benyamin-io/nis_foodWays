@@ -6,13 +6,18 @@ import PrivateRoute from './components/PrivateRoute'
 import Header from './components/layouts/header'
 import Detail from './pages/detail'
 import AddProduct from './pages/addProduct'
+import Cart from './pages/Cart'
+import Transaction from './pages/Transaction'
+import Profile from './pages/Profile'
 
 import { LoginContextProvider } from "./contexts/loginContext"
 import { ModalContextProvider } from "./contexts/modalContext"
 import { CartContextProvider } from "./contexts/cartContext"
+import { UserContextProvider } from "./contexts/userContext"
 import { LoginContext } from "./contexts/loginContext"
 import { ModalContext } from "./contexts/modalContext"
 import { CartContext } from "./contexts/cartContext"
+import { UserContext } from "./contexts/userContext"
 
 import pizza from './assets/landing/pizza.png' 
 
@@ -33,6 +38,7 @@ function App() {
 
 
   return (
+    <UserContextProvider>
     <CartContextProvider>
       <ModalContextProvider>
         <LoginContextProvider>
@@ -99,12 +105,16 @@ function App() {
 
               <PrivateRoute path="/partner/:id" component={Detail} />
               <Route exact path="/product/add" component={AddProduct} />
+              <PrivateRoute path="/cart" component={Cart} />
+              <PrivateRoute path="/profile" component={Profile} />
+              <Route path="/transaction" component={Transaction} />
             </Switch>
             
           </Router>
         </LoginContextProvider>
       </ModalContextProvider>
     </CartContextProvider>
+    </UserContextProvider>
   )
 }
 

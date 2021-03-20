@@ -4,16 +4,18 @@ import {Link, useHistory} from 'react-router-dom'
 
 import {LoginContext} from '../contexts/loginContext'
 import {ModalContext} from '../contexts/modalContext'
+import {UserContext} from '../contexts/userContext'
 
 
 export default function Login({from}) {
   
-  console.log(from)
+  // console.log(from)
 
   const [data, setData] = useState({email: '', password: ''})
 
   const [state, dispatch] = useContext(LoginContext)
   const [modal, dispatchModal] = useContext(ModalContext)
+  const [users, dispatchUsers] = useContext(UserContext)
 
   const history = useHistory()
 
@@ -23,35 +25,46 @@ export default function Login({from}) {
 
   const handleLogin = e => {
     e.preventDefault()
-    if(typeof(localStorage) !== 'undefined'){
-      localStorage.setItem("email", data.email)
-      localStorage.setItem("password", data.password)
-      if(localStorage.email == 'user@gmail.com'){
-        localStorage.setItem('role', 'user')
-      }else{
-        localStorage.setItem('role', 'partner')
-      }
 
-      console.log(localStorage.getItem('email'))
-      console.log(localStorage.getItem('password'))
+    const findUserByEmail = users.users.find(user => user.email == data.email)
 
-      dispatch({
-        type: "LOGIN_SUCCESS",
-      })
+    console.log(findUserByEmail)
+    
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: findUserByEmail? {role: findUserByEmail.role, userId: findUserByEmail.id} : {role: null, userId: null}
+    })
+    
+    console.log(state)
+    // console.log(dispatch)
+    // console.log(state.isLogin)
 
-      // console.log(dispatch)
-      // console.log(state.isLogin)
+    dispatchModal({
+      type: 'CLOSE_MODAL_LOGIN'
+    })
 
-      dispatchModal({
-        type: 'CLOSE_MODAL_LOGIN'
-      })
-
-      if(from){
-        history.push(`/partner/${from}`)
-      }
-    }else{
-
+    if(from){
+      history.push(`/partner/${from}`)
     }
+
+    setData({email: '', password: ''})
+
+    // if(typeof(localStorage) !== 'undefined'){
+    //   localStorage.setItem("email", data.email)
+    //   localStorage.setItem("password", data.password)
+    //   if(localStorage.email == 'user@gmail.com'){
+    //     localStorage.setItem('role', 'user')
+    //   }else{
+    //     localStorage.setItem('role', 'partner')
+    //   }
+
+    //   console.log(localStorage.getItem('email'))
+    //   console.log(localStorage.getItem('password'))
+
+     
+    // }else{
+
+    // }
   }
 
   return (

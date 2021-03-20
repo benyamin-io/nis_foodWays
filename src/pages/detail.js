@@ -12,19 +12,20 @@ export default function Detail() {
   const params = useParams()
   const {id} = params
 
-  const geprekbensu = nearyou.filter(item => item.id == id)
+  const resto = nearyou.filter(item => item.id == id)
 
-  const products = geprekbensu[0].products
+  const products = resto[0].products
 
   const [cart, dispatchCart] = useContext(CartContext)
 
-  console.log(cart)
+  // console.log(cart)
+
 
 
   if(products && products.length > 0){
     return (
       <div className="w-75 mx-auto my-5">
-        <h3 className="mb-5">Geprek Bensu Menus</h3>
+        <h3 className="mb-5">{resto[0].title} Menus</h3>
         <div className="row ">
           {products.map(product => {
             return(
@@ -39,6 +40,7 @@ export default function Detail() {
                     </Card.Text>
                     <Button className="w-100 py-0" style={{background: '#FFC700', color: 'black' }}onClick={() => {
                       dispatchCart({type: 'ADD_ITEM', payload: product})
+                      dispatchCart({type: 'ADD_RESTO', payload: resto[0].title})
                     }}><b>Order</b></Button>
                   </Card.Body>
                 </Card>

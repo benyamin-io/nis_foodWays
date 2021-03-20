@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
 import {Row, Col, Container, Button, Dropdown} from 'react-bootstrap'
 
@@ -16,6 +16,7 @@ import addproduct from "../../assets/header/addproduct.png"
 import {LoginContext} from '../../contexts/loginContext'
 import {ModalContext} from '../../contexts/modalContext'
 import {CartContext} from '../../contexts/cartContext'
+import {UserContext} from '../../contexts/userContext'
 
 
 export default function Header({}) {
@@ -25,6 +26,14 @@ export default function Header({}) {
   const [modal, dispatchModal] = useContext(ModalContext)
 
   const [cart, dispatchCart] = useContext(CartContext)
+
+  // const [users, dispatchUser] = useContext(UserContext)
+
+  // console.log('from header: ')
+  // const lists = users.users.map(user => user)
+  // console.log(lists)
+
+  const history = useHistory()
   
   return (
     <header>
@@ -53,7 +62,7 @@ export default function Header({}) {
               {state.isLogin && 
                 <Row className="justify-content-end align-items-center mr-4">
                   <div className="mr-4">
-                    <img src={cartIcon} /> 
+                    <img src={cartIcon} onClick={() => history.push('/cart')}/> 
                     {cart.carts.length > 0? 
                     <div style={{borderRadius: '50%', background: 'red', textAlign: 'center', color: 'white', width: '25px', height: '25px',padding: '3px', fontSize: '15px', position: 'absolute', top: '5px', right: '160px'}}>{cart.carts.length}</div> : ''}
                   </div>
@@ -65,12 +74,14 @@ export default function Header({}) {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1" className="d-flex align-items-center">
+                        <Dropdown.Item className="d-flex align-items-center" onClick={() => {
+                            history.push('/profile')
+                          }}>
                           <div><img src={profile}/> </div>
-                          <div className="ml-3">{localStorage.role == 'user'? 'Profile' : 'Profile Partner'}</div>
+                          <div className="ml-3">{state.role == 'user'? 'Profile' : 'Profile Partner'}</div>
                         </Dropdown.Item>
                         
-                        {localStorage.role != 'user'?
+                        {state.role != 'user'?
                            <Dropdown.Item >
                               <Link to='/product/add'>
                                 <div className="d-flex align-items-center text-dark">
@@ -84,8 +95,11 @@ export default function Header({}) {
                         }
                        
                         <Dropdown.Divider style={{border: "1px solid gray"}} />
-                        <Dropdown.Item href="#/action-3">
-                          <div className="d-flex align-items-center" onClick={() => window.location = 'http://localhost:3000'}>
+                        <Dropdown.Item>
+                          <div className="d-flex align-items-center" onClick={() => {
+                            dispatch({type: 'LOGOUT'})
+                            history.push('/')
+                          } }>
                             <div>
                               <img src={logout} />
                             </div>

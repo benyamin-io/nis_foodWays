@@ -28,14 +28,14 @@ export const popular=[
 export const nearyou=[
   {id: 1, image: geprek, title: 'Geprek Bensu', distance: '0.2 km',
   products: [
-    {id: 1, name: 'Paket Geprek', image: geprekk, price: '15.000'},
-    {id: 2, name: 'Paket Geprek Keju', image: geprekkeju, price: '20.000'},
-    {id: 3, name: 'Paket Geprek Leleh', image: gepreklele, price: '25.000'},
-    {id: 4, name: 'Paket Sambel Matah', image: sambelmetah, price: '15.000'},
-    {id: 5, name: 'Mie ayam Geprek', image: miegeprek, price: '17.000'},
-    {id: 6, name: 'Mie ayam Geprek keju', image: miegeprekkeju, price: '22.000'},
-    {id: 7, name: 'Mie Ayam Leleh', image: mieayamleleh, price: '27.000'},
-    {id: 8, name: 'Mie ayam Sambel Telur Asin', image: mieayamsambel, price: '22.000'},
+    {id: 1, name: 'Paket Geprek', image: geprekk, price: '15000'},
+    {id: 2, name: 'Paket Geprek Keju', image: geprekkeju, price: '20000'},
+    {id: 3, name: 'Paket Geprek Leleh', image: gepreklele, price: '25000'},
+    {id: 4, name: 'Paket Sambel Matah', image: sambelmetah, price: '15000'},
+    {id: 5, name: 'Mie ayam Geprek', image: miegeprek, price: '17000'},
+    {id: 6, name: 'Mie ayam Geprek keju', image: miegeprekkeju, price: '22000'},
+    {id: 7, name: 'Mie Ayam Leleh', image: mieayamleleh, price: '27000'},
+    {id: 8, name: 'Mie ayam Sambel Telur Asin', image: mieayamsambel, price: '22000'},
   ]
   },
   {id: 2, image: nasgor, title: 'Nasi Goreng Mas Rony', distance: '0.6 km'},

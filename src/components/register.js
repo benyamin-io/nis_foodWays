@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {Modal, Button, Row, Col, Form} from 'react-bootstrap'
 
 import {ModalContext} from '../contexts/modalContext'
+import {UserContext, UserContextProvider} from '../contexts/userContext'
 
 export default function Register({}){
 
@@ -15,6 +16,8 @@ export default function Register({}){
     phone: '',
     role: ''
   })
+
+  const [users, dispatchUsers] = useContext(UserContext)
 
   const [modal, dispatchModal] = useContext(ModalContext)
 
@@ -72,23 +75,39 @@ export default function Register({}){
 
   const handleRegister = e => {
     e.preventDefault()
-    if (typeof(localStorage) !== "undefined") {
-      localStorage.setItem("email", data.email);
-      localStorage.setItem("password", data.password);
-      localStorage.setItem("fullname", data.fullname);
-      localStorage.setItem("gender", data.gender);
-      localStorage.setItem("phone", data.phone);
-      localStorage.setItem("role", data.role);
 
-      console.log(localStorage.getItem("email"))
-      console.log(localStorage.getItem("password"))
-      console.log(localStorage.getItem("fullName"))
-      console.log(localStorage.getItem("gender"))
-      console.log(localStorage.getItem("phone"))
-      console.log(localStorage.getItem("role"))
-    } else {
-
+    const newUser = {
+      id: Math.floor(Math.random() * 1000),
+      email: data.email,
+      password: data.password,
+      fullname: data.fullname,
+      gender: data.gender,
+      phone: data.phone,
+      role: data.role
     }
+
+    dispatchUsers({type: 'ADD_USER', payload: newUser})
+
+    dispatchModal({type: 'CLOSE_MODAL_REGISTER'})
+    dispatchModal({type: 'SHOW_MODAL_LOGIN'})
+
+    // if (typeof(localStorage) !== "undefined") {
+    //   localStorage.setItem("email", data.email);
+    //   localStorage.setItem("password", data.password);
+    //   localStorage.setItem("fullname", data.fullname);
+    //   localStorage.setItem("gender", data.gender);
+    //   localStorage.setItem("phone", data.phone);
+    //   localStorage.setItem("role", data.role);
+
+    //   console.log(localStorage.getItem("email"))
+    //   console.log(localStorage.getItem("password"))
+    //   console.log(localStorage.getItem("fullName"))
+    //   console.log(localStorage.getItem("gender"))
+    //   console.log(localStorage.getItem("phone"))
+    //   console.log(localStorage.getItem("role"))
+    // } else {
+
+    // }
   }
 
   return(

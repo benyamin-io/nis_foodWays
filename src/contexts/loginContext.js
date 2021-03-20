@@ -9,11 +9,21 @@ const initialState = {
 const reducer = (state, action) => {
   const {type, payload} = action
 
+  console.log(payload)
+
   switch(type){
     case "LOGIN_SUCCESS":
       return {
         ...state,
         isLogin: true,
+        userId: payload.userId,
+        role: payload.role
+      }
+    case 'LOGOUT':
+      return {
+        ...state,
+        isLogin: false,
+        role: ''
       }
     default:
       throw new Error()
